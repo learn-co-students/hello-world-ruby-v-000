@@ -1,3 +1,3 @@
 puts "Hello World!"
-ruby hello_ruby.#!/usr/bin/env ruby -wKU
-hello_ruby.#!/usr/bin/env ruby -wKU
+ruby hello_world.rb
+hello_world.rb

@@ -1,3 +1,2 @@
-ruby hello_world.#!/usr/bin/env ruby -wKU
+ruby
  puts "Hello World!"
- 

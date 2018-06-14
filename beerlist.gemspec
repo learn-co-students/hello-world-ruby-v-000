@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.description = "provides seperate beer lists based on region and style"
   s.authors     = ["Eric DeSimone"]
   s.email       = 'eric.desimone@cortland.edu '
-  s.files       = ["lib/beerlist.rb"]
+  s.files       = ["lib/beerlist.rb", "config/environment.rb"]
   s.homepage    = 'http://rubygems.org/gems/beerlist'
   s.license     = 'MIT'
   s.executables << 'beerlist'

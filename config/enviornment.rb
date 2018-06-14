@@ -2,5 +2,6 @@ require 'pry'
 require 'nokogiri'
 require 'open-uri'
 require 'bundler'
+require 'require_all'
 
-require_relative '../lib/beerlist.rb
+require_all 'lib'

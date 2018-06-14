@@ -18,4 +18,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec", ">= 0"
   s.add_development_dependency "nokogiri", ">= 0"
   s.add_development_dependency "pry", ">= 0"
+  s.add_development_dependency "require_all", ">=0"
 end

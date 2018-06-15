@@ -6,6 +6,11 @@ class BeerList::CLI
     menu
   end
 
+  def create_parent_styles
+    lager = ParentStyle.new("Lager")
+    ale = ParentStyle.new("Ale")
+  end
+
   def menu
     puts "GREETINGS USER!"
     puts "PLEASE ENTER THE CORRESPONDING NUMBER FOR THE FOLLOWING OPTIONS"

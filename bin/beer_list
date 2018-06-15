@@ -2,5 +2,5 @@
 
 require './lib/beer_list'
 
-
+Scraper.new
 BeerList::CLI.new.call

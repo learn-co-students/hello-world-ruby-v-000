@@ -6,8 +6,8 @@ class Scraper
 
   def create_regions
     self.get_style_page.css("table td b").each do |region_name|
-      new_region_name = region_name.text
-      Region.new(region_name.text) unless Region.all.any? {|region| region.name == region_name.text}
+      new_region_name = region_name.text.gsub(" Ales", " Beer")
+      Region.new(new_region_name) unless Region.all.any? {|region| region.name == new_region_name}
     end
   end
 

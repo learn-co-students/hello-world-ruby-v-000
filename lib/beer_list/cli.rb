@@ -9,6 +9,7 @@ class BeerList::CLI
   def create_parent_styles
     lager = ParentStyle.new("Lager")
     ale = ParentStyle.new("Ale")
+    puts "#{ale.name} #{lager.name}"
   end
 
   def menu

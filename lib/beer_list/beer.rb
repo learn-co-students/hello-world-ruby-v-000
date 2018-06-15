@@ -1,7 +1,7 @@
 
 
 class Beer
-  attr_accessor :name, :sub_style, :region, :availability, :abv
+  attr_accessor :name, :sub_style, :region, :availability, :abv, :url
   @@all = []
 
   def initialize(beer_hash)

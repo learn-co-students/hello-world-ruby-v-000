@@ -50,7 +50,7 @@ class BeerList::CLI
 
    def list_regions
      Region.all.each_with_index do |region, index|
-       puts "#{index +=1}. #{region.name}"
+       puts "#{index += 1}. #{region.name}"
      end
    end
 

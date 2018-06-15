@@ -12,7 +12,7 @@ class BeerList::CLI
     puts "#{ale.name} #{lager.name}"
   end
 
-  def menu
+  def main_menu
     puts "GREETINGS USER!"
     puts "PLEASE ENTER THE CORRESPONDING NUMBER FOR THE FOLLOWING OPTIONS"
     puts "HOW WOULD YOU LIKE TO SORT YOUR BEER LIST?"
@@ -21,6 +21,10 @@ class BeerList::CLI
     puts "3. CHOOSE BY REGION"
     puts "4. CHOOSE BY SUBSTYLE"
     puts "OTHERWISE, ENTER 'EXIT'"
+  end
+
+  def menu
+    self.main_menu
     answer = nil
     while answer != "exit"
       answer = gets.strip
@@ -30,10 +34,12 @@ class BeerList::CLI
         puts "2"
       elsif answer == "3"
         puts "PLEASE SELECT THE NUMBER THAT CORRESPONDS WITH YOUR REGION OF CHOICE"
-        puts "OTHERWISE ENTER 'EXIT' TO LEAVE"
+        puts "OTHERWISE ENTER 'EXIT' TO LEAVE OR 'MAIN' TO RETURN TO THE PREVIOUS PAGE"
         self.list_regions
       elsif answer == "4"
         puts "4"
+      elsif answer == "main"
+        main_menu
       end
      end
    end

@@ -23,6 +23,8 @@ class BeerList::CLI
     puts "OTHERWISE, ENTER 'EXIT'"
   end
 
+
+
   def menu
     self.main_menu
     answer = nil
@@ -31,10 +33,12 @@ class BeerList::CLI
       if answer == "1"
          puts "1"
       elsif answer == "2"
-        puts "2"
+        puts "PLEASE SELECT THE NUMBER THAT CORRESPONDS WITH THE STYLE OF CHOICE"
+        puts "OTHERWISE ENTER 'EXIT' TO LEAVE OR 'MAIN' TO RETURN TO THE MAIN MENU"
+        self.list_parent_styles
       elsif answer == "3"
-        puts "PLEASE SELECT THE NUMBER THAT CORRESPONDS WITH YOUR REGION OF CHOICE"
-        puts "OTHERWISE ENTER 'EXIT' TO LEAVE OR 'MAIN' TO RETURN TO THE PREVIOUS PAGE"
+        puts "PLEASE SELECT THE NUMBER THAT CORRESPONDS WITH THE REGION OF CHOICE"
+        puts "OTHERWISE ENTER 'EXIT' TO LEAVE OR 'MAIN' TO RETURN TO THE MAIN MENU"
         self.list_regions
       elsif answer == "4"
         puts "4"
@@ -48,6 +52,11 @@ class BeerList::CLI
      Region.all.each_with_index do |region, index|
        puts "#{index +=1}. #{region.name}"
      end
+   end
+
+   def list_parent_styles
+     puts "1. Ales"
+     puts "2. Lagers"
    end
 
 end

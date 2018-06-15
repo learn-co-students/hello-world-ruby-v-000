@@ -9,4 +9,7 @@ class Beer
     @@all << self
   end
 
+  def self.all
+    puts "#{@@all}"
+  end
 end

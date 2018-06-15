@@ -29,10 +29,18 @@ class BeerList::CLI
       elsif answer == "2"
         puts "2"
       elsif answer == "3"
-        puts "3"
+        puts "PLEASE SELECT THE NUMBER THAT CORRESPONDS WITH YOUR REGION OF CHOICE"
+        puts "OTHERWISE ENTER 'EXIT' TO LEAVE"
+        self.list_regions
       elsif answer == "4"
         puts "4"
       end
+     end
+   end
+
+   def list_regions
+     Region.all.each_with_index do |region, index|
+       puts "#{index +=1}. #{region.name}"
      end
    end
 

@@ -10,6 +10,8 @@ class Scraper
       region_split = new_region_name.split(" ")
       if region_split[1] == "Ales"
         new_region_name.gsub!(" Ales", " Beers")
+      elsif region_split[1] == "Lagers"
+        new_region_name.gsub!(" Lagers", " Beers")
       end
 
       Region.new(new_region_name) unless Region.all.any? {|region| region.name == new_region_name}

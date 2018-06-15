@@ -5,7 +5,8 @@ require './lib/beer_list'
 
 Scraper.new.create_regions
 Region.prints_all
+BeerList::CLI.new.list_regions
 #beerlist = BeerList::CLI.new
 #beerlist.create_parent_styles
 #ParentStyle.all
-#BeerList::CLI.call
+BeerList::CLI.new.call

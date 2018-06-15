@@ -2,7 +2,10 @@
 
 require './lib/beer_list'
 
-beerlist = BeerList::CLI.new
-beerlist.create_parent_styles
-ParentStyle.all
+
+Scraper.new.create_regions
+Region.prints_all
+#beerlist = BeerList::CLI.new
+#beerlist.create_parent_styles
+#ParentStyle.all
 #BeerList::CLI.call

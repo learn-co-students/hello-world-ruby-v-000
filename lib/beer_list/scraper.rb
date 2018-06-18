@@ -25,16 +25,24 @@ class Scraper
         info.css("td a").each do |beer_style|
           sub_styles << {
             :name => beer_style.text,
-            :parent_style => ParentStyle.all.find {|style| style.name == "Ale"}
-            :url => beer_style.attribute
+            :parent_style => ParentStyle.all.find {|style| style.name == "Ale"},
+            :url => beer_style.attribute('href').value
           }
-          binding.pry
-          
+        end
+      elsif info.css("span").text == "Lager Styles"
+        info.css("td a").each do |beer_style|
+          sub_styles << {
+            :name => beer_style.text,
+            :parent_style => ParentStyle.all.find {|style| style.name == "Lager"},
+            :url => beer_style.attribute('href').value
+          }
         end
       end
     end
+    sub_styles.each do |style_hash|
+      SubStyle.new(style_hash) unless SubStyle.all.any? {|sub_style| sub_style.name == style_hash[:name]}
+    end
   end
-  
   
     
 

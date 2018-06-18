@@ -11,19 +11,6 @@ class BeerList::CLI
     ale = ParentStyle.new("Ale")
   end
 
-  def main_menu
-    puts "GREETINGS USER!"
-    puts "PLEASE ENTER THE CORRESPONDING NUMBER FOR THE FOLLOWING OPTIONS"
-    puts "HOW WOULD YOU LIKE TO SORT YOUR BEER LIST?"
-    puts "1. LIST THE TOP BEERS IN THE WORLD"
-    puts "2. SEPERATE BETWEEN ALES AND LAGERS"
-    puts "3. CHOOSE BY REGION"
-    puts "4. CHOOSE BY SUBSTYLE"
-    puts "OTHERWISE, ENTER 'EXIT'"
-  end
-
-
-
   def menu
     puts "GREETINGS USER!"
     puts "PLEASE ENTER THE CORRESPONDING NUMBER FOR THE FOLLOWING OPTIONS"

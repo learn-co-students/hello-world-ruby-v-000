@@ -1,7 +1,7 @@
 
 
 class Beer
-  attr_accessor :name, :sub_style, :region, :availability, :abv, :url
+  attr_accessor :name, :sub_style, :region, :availability, :abv, :url, :score, :ratings, :brewery, :location, :description
   @@all = []
 
   def initialize(beer_hash)
@@ -10,6 +10,6 @@ class Beer
   end
 
   def self.all
-    puts "#{@@all}"
+    @@all
   end
 end

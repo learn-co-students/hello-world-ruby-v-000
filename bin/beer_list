@@ -3,7 +3,7 @@
 require './lib/beer_list'
 
 #BeerList::CLI.new.create_parent_styles
-Scraper.new.create_sub_styles
+Scraper.new.create_beers
 #Region.prints_all
 #3BeerList::CLI.new.list_regions
 #beerlist = BeerList::CLI.new

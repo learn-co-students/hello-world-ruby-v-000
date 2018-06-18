@@ -4,6 +4,11 @@ class Scraper
     doc = Nokogiri::HTML(open("https://www.beeradvocate.com/beer/style/"))
   end
 
+  def create_parent_styles
+    lager = ParentStyle.new("Lager")
+    ale = ParentStyle.new("Ale")
+  end
+
   def create_regions
     self.get_style_page.css("table td b").each do |region_name|
       new_region_name = region_name.text
@@ -43,7 +48,14 @@ class Scraper
       SubStyle.new(style_hash) unless SubStyle.all.any? {|sub_style| sub_style.name == style_hash[:name]}
     end
   end
-  
+
+  def create_beers
+    self.create_sub_styles
+    SubStyle.all.each do |sub_style|
+      doc = Nokogiri::HTML(open("https://www.beeradvocate.com#{sub_style.url}?sort=avgD"))
+      binding.pry
+    end
+  end
     
 
 end

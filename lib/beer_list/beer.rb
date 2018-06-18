@@ -9,6 +9,10 @@ class Beer
     @@all << self
   end
 
+  def add_attr(attr_hash)
+    attr_hash.each {|key, value| self.send(("#{key}="), value)}
+  end
+
   def self.all
     @@all
   end

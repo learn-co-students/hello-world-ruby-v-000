@@ -85,9 +85,14 @@ class Scraper
           beer_list.each do |beer_hash|
           sub_style.style_beers << Beer.new(beer_hash) unless Beer.all.any? {|beer| beer.name == beer_hash[:name]}
           end
+          sub_style.style_beers.each do |beer|
+            doc = Nokogiri::HTML(open("https://www.beeradvocate.com#{beer.url}"))
+            binding.pry
+          end
           binding.pry
     end
   end
+
     
     
 

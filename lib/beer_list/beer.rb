@@ -1,7 +1,7 @@
 
 
 class Beer
-  attr_accessor :name, :sub_style, :parent_style, :region, :availability, :abv, :url, :score, :ratings, :brewery, :location, :description
+  attr_accessor :name, :sub_style, :parent_style, :region, :availability, :abv, :url, :score, :ratings, :brewery, :description
   @@all = []
 
   def initialize(beer_hash)
@@ -9,7 +9,7 @@ class Beer
     @@all << self
   end
 
-  def add_attr(attr_hash)
+  def add_attrs(attr_hash)
     attr_hash.each {|key, value| self.send(("#{key}="), value)}
   end
 

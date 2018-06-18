@@ -58,42 +58,31 @@ class Scraper
          doc.css("tr td a").each do |info|
            beer_list << { 
              :name => info.css("b").text,
-             :url => info.attribute('href').value,
-             :parent_style => sub_style.parent_style    
+             :url => info.attribute('href').value, 
+             :parent_style => sub_style.parent_style  
            }
+           binding.pry
         end
         beer_list.reject! do |hash|
         hash[:name] == ""
       end
-      beer_list.each do |beer_hash|
-        sub_style.stlye_beers << Beer.new(beer_hash) unless Beer.all.any? {|beer| beer.name == beer_hash[:name]}
+      beer_list.each do|beer_hash|
+        beer_doc = Nokogiri::HTML(open("https://www.beeradvocate.com#{beer_hash[:url]}"))
+        beer_hash[:ratings] = beer_doc.css("dd span.ba-ratings").text.to_i
+        beer_hash[:score] = beer_doc.css("span.ba-ravg")
         binding.pry
       end
+      binding.pry
+        beer_list.each do |beer_hash|
+        sub_style.style_beers << Beer.new(beer_hash) unless Beer.all.any? {|beer| beer.name == beer_hash[:name]}
+      end
     end
-  
-   end
-    
-    
-
-end
-
-=begin
-students << {
-        :name => student_info.css("div.card-text-container h4.student-name").text,
-        :location => student_info.css("div.card-text-container p.student-location").text,
-        :profile_url => student_info.css("a").collect  { |link| link['href'] }.join
-        }
-=end
-
-=begin
-sub_style_ales = nil
-sub_style_lagers = nil
-self.get_style_page.css("table table").each do |info|
-  if info.css("span").text == "Ale Styles"
-    sub_style_ales = info.css("td a").collect {|beer_style| beer_style.text}
-  elsif info.css("span").text == "Lager Styles"
-    sub_style_lagers = info.css("td a").collect {|beer_style| beer_style.text}
-    binding.pry
   end
+    
+    
+
 end
+
+=begin
+<span class="BAscore_big"><span class="ba-ravg">4.58</span></span>
 =end

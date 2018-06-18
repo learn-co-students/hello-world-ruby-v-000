@@ -1,5 +1,5 @@
 class SubStyle
-  attr_accessor :name, :region, :parent_style, :url, :stlye_beers
+  attr_accessor :name, :region, :parent_style, :url, :style_beers
     @@all = []
 
     def self.all

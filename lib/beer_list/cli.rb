@@ -6,11 +6,6 @@ class BeerList::CLI
     menu
   end
 
-  def create_parent_styles
-    lager = ParentStyle.new("Lager")
-    ale = ParentStyle.new("Ale")
-  end
-
   def menu
     puts "GREETINGS USER!"
     puts "PLEASE ENTER THE CORRESPONDING NUMBER FOR THE FOLLOWING OPTIONS"
@@ -24,7 +19,7 @@ class BeerList::CLI
     while answer != "exit"
       answer = gets.strip
       if answer == "1"
-         puts "1"
+         self.list_beers
       elsif answer == "2"
         puts "PLEASE SELECT THE NUMBER THAT CORRESPONDS WITH THE STYLE OF CHOICE"
         puts "OTHERWISE ENTER 'EXIT' TO LEAVE OR 'MAIN' TO RETURN TO THE MAIN MENU"
@@ -55,6 +50,12 @@ class BeerList::CLI
    def list_sub_styles
      SubStyle.all.each_with_index do |sub_style, index|
        puts "#{index += 1}. #{sub_style.name}"
+     end
+   end
+
+   def list_beers 
+     Beer.all.each_with_index do |beer, index|
+       puts "#{index += 1}. #{beer.name}"
      end
    end
    

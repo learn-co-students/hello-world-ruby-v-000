@@ -24,6 +24,7 @@ class Scraper
 
 
   def create_sub_styles
+    self.create_parent_styles
     sub_styles = []
     self.get_style_page.css("table table").each do |info|
       if info.css("span").text == "Ale Styles"
@@ -57,16 +58,18 @@ class Scraper
          doc.css("tr td a").each do |info|
            beer_list << { 
              :name => info.css("b").text,
-             :url => info.attribute('href').value, 
-             :rating => doc.css("tr td.left b").text      
+             :url => info.attribute('href').value,
+             :parent_style => sub_style.parent_style    
            }
         end
         beer_list.reject! do |hash|
         hash[:name] == ""
       end
-      binding.pry
-     end
-  end
+    end
+    beer_list.each do |beer_hash|
+      Beer.new(beer_hash) unless Beer.all.any? {|beer| beer.name == beer_hash[:name]}
+    end
+   end
     
     
 

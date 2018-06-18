@@ -26,8 +26,10 @@ class Scraper
           sub_styles << {
             :name => beer_style.text,
             :parent_style => ParentStyle.all.find {|style| style.name == "Ale"}
+            :url => beer_style.attribute
           }
           binding.pry
+          
         end
       end
     end

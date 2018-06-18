@@ -65,10 +65,12 @@ class Scraper
         beer_list.reject! do |hash|
         hash[:name] == ""
       end
+      beer_list.each do |beer_hash|
+        sub_style.stlye_beers << Beer.new(beer_hash) unless Beer.all.any? {|beer| beer.name == beer_hash[:name]}
+        binding.pry
+      end
     end
-    beer_list.each do |beer_hash|
-      Beer.new(beer_hash) unless Beer.all.any? {|beer| beer.name == beer_hash[:name]}
-    end
+  
    end
     
     

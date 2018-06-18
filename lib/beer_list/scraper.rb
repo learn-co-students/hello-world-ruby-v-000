@@ -22,19 +22,29 @@ class Scraper
     sub_styles = []
     self.get_style_page.css("table table").each do |info|
       if info.css("span").text == "Ale Styles"
-        sub_styles << {
         info.css("td a").each do |beer_style|
-          name: = beer_style.text
+          sub_styles << {
+            :name => beer_style.text,
+            :parent_style => ParentStyle.all.find {|style| style.name == "Ale"}
+          }
           binding.pry
         end
-      }
       end
     end
+  end
+  
+  
     
-      
-  end 
 
 end
+
+=begin
+students << {
+        :name => student_info.css("div.card-text-container h4.student-name").text,
+        :location => student_info.css("div.card-text-container p.student-location").text,
+        :profile_url => student_info.css("a").collect  { |link| link['href'] }.join
+        }
+=end
 
 =begin
 sub_style_ales = nil

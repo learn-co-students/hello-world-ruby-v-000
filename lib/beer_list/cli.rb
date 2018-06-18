@@ -19,6 +19,8 @@ class BeerList::CLI
     while answer != "exit"
       answer = gets.strip
       if answer == "1"
+        puts "PLEASE SELECT THE NUMBER THAT CORRESPONDS WITH THE BEER OF CHOICE"
+        puts "OTHERWISE ENTER 'EXIT' TO LEAVE OR 'MAIN' TO RETURN TO THE MAIN MENU"
          self.list_beers
       elsif answer == "2"
         puts "PLEASE SELECT THE NUMBER THAT CORRESPONDS WITH THE STYLE OF CHOICE"
@@ -29,9 +31,17 @@ class BeerList::CLI
         puts "OTHERWISE ENTER 'EXIT' TO LEAVE OR 'MAIN' TO RETURN TO THE MAIN MENU"
         self.list_regions
       elsif answer == "4"
-        puts "PLEASE SELECT THE NUMBER THAT CORRESPONDS WITH THE REGION OF CHOICE"
+        puts "PLEASE SELECT THE NUMBER THAT CORRESPONDS WITH THE SUB-STYLE OF CHOICE"
         puts "OTHERWISE ENTER 'EXIT' TO LEAVE OR 'MAIN' TO RETURN TO THE MAIN MENU"
-        self.list_sub_styles
+        while answer2 != "exit"
+          puts "PLEASE SELECT THE NUMBER THAT CORRESPONDS WITH THE SORTING METHOD OF CHOICE"
+          puts "OTHERWISE ENTER 'EXIT' TO LEAVE OR 'MAIN' TO RETURN TO THE MAIN MENU"
+          puts "1. SORT BY ABV"
+          puts "2. SORT BY BA-SCORE"
+          puts "3. SORT BY REVIEW AMOUNT"
+          answer2 = gets.strip
+          if answer2 == "1"
+            
       end
      end
    end
@@ -53,6 +63,11 @@ class BeerList::CLI
      end
    end
 
+   def list_sub_style_score(answer)
+    choice = SubStyle.all[answer - 1]
+    choice.style_beers.sort_by {|beer| beer.score}
+   end
+   
    def list_beers 
      Beer.all.each_with_index do |beer, index|
        puts "#{index += 1}. #{beer.name}"

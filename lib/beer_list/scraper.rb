@@ -25,6 +25,7 @@ class Scraper
 
   def create_sub_styles
     self.create_parent_styles
+    self.create_regions
     sub_styles = []
     self.get_style_page.css("table table").each do |info|
       if info.css("span").text == "Ale Styles"
@@ -97,7 +98,6 @@ class Scraper
             }
             beer.add_attrs(attr_hash)
           end
-          binding.pry
     end
   end
 

@@ -1,19 +1,15 @@
 class Region
-  attr_accessor :name
+  attr_accessor :name, :sub_styles
     @@all = []
-    @@all_with_parent_styles = []
 
     def initialize(name)
       @name = name
       @@all << self
+      @sub_styles = []
     end
 
     def self.all
       @@all
-    end
-
-    def self.prints_all
-      puts "#{@@all}"
     end
 
 end

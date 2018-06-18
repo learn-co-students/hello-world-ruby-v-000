@@ -19,9 +19,19 @@ class Scraper
 
 
   def create_sub_styles
-    styles = self.get_style_page.css("table td a").collect { |link| link.text}
-    binding.pry
-  end
+    sub_style_ales = nil
+    sub_style_lagers = nil
+    self.get_style_page.css("table table").each do |info|
+      if info.css("span").text == "Ale Styles"
+        sub_style_ales = info.css("td a").collect {|beer_style| beer_style.text}
+      elsif info.css("span").text == "Lager Styles"
+        sub_style_lagers = info.css("td a").collect {|beer_style| beer_style.text}
+        binding.pry
+      end
+    end
+    sub_styles = {}
+    sub_style_ales.each do |beer_styles|
+  end 
 
 end
 

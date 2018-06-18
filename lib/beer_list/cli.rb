@@ -25,7 +25,14 @@ class BeerList::CLI
 
 
   def menu
-    self.main_menu
+    puts "GREETINGS USER!"
+    puts "PLEASE ENTER THE CORRESPONDING NUMBER FOR THE FOLLOWING OPTIONS"
+    puts "HOW WOULD YOU LIKE TO SORT YOUR BEER LIST?"
+    puts "1. LIST THE TOP BEERS IN THE WORLD"
+    puts "2. SEPERATE BETWEEN ALES AND LAGERS"
+    puts "3. CHOOSE BY REGION"
+    puts "4. CHOOSE BY SUBSTYLE"
+    puts "OTHERWISE, ENTER 'EXIT'"
     answer = nil
     while answer != "exit"
       answer = gets.strip
@@ -40,9 +47,9 @@ class BeerList::CLI
         puts "OTHERWISE ENTER 'EXIT' TO LEAVE OR 'MAIN' TO RETURN TO THE MAIN MENU"
         self.list_regions
       elsif answer == "4"
-        puts "4"
-      elsif answer == "main"
-        main_menu
+        puts "PLEASE SELECT THE NUMBER THAT CORRESPONDS WITH THE REGION OF CHOICE"
+        puts "OTHERWISE ENTER 'EXIT' TO LEAVE OR 'MAIN' TO RETURN TO THE MAIN MENU"
+        self.list_sub_styles
       end
      end
    end
@@ -58,4 +65,10 @@ class BeerList::CLI
      puts "2. Lagers"
    end
 
+   def list_sub_styles
+     SubStyle.all.each_with_index do |sub_style, index|
+       puts "#{index += 1}. #{sub_style.name}"
+     end
+   end
+   
 end

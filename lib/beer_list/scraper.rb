@@ -21,7 +21,7 @@ class Scraper
       Region.new(new_region_name) unless Region.all.any? {|region| region.name == new_region_name}
     end
   end
-
+#
 
   def create_sub_styles
     self.create_parent_styles
@@ -61,31 +61,32 @@ class Scraper
             :name => info.css("td a b").text,
             :url => info.css("td a").attribute('href').value,
             :parent_style => sub_style.parent_style,
-            :ratings => info.css("td b").collect {|child| child.text if child == info.css("td b")[1]}.reject! {|text| text == nil}.join.to_i,
+            :ratings => info.css("td b").collect {|child| child.text.gsub(",","") if child == info.css("td b")[1]}.reject! {|text| text == nil}.join.to_i,
             :score => info.css("td b").collect {|child| child.text if child == info.css("td b")[2]}.reject! {|text| text == nil}.join.to_f,
             :abv => info.css("td span").text.to_f
-            }
+            } unless info.css("td a b").text == ""
         end
         beer_list.reject! {|beer_hash| beer_hash[:ratings] < 100}
         counter = 50
-        while beer_list.count < 19
+        while beer_list.count < 20
           doc = Nokogiri::HTML(open("https://www.beeradvocate.com#{sub_style.url}?sort=avgD&start=#{counter}"))
           doc.css("tr").drop(3).each do |info|
             beer_list << {
               :name => info.css("td a b").text,
               :url => info.css("td a").attribute('href').value,
               :parent_style => sub_style.parent_style,
-              :ratings => info.css("td b").collect {|child| child.text if child == info.css("td b")[1]}.reject! {|text| text == nil}.join.to_i,
+              :ratings => info.css("td b").collect {|child| child.text.gsub(",","") if child == info.css("td b")[1]}.reject! {|text| text == nil}.join.to_i,
               :score => info.css("td b").collect {|child| child.text if child == info.css("td b")[2]}.reject! {|text| text == nil}.join.to_f,
               :abv => info.css("td span").text.to_f
-              }
+              } unless info.css("td a b").text == ""
             end
             beer_list.reject! {|beer_hash| beer_hash[:ratings] < 100}
             counter += 50
           end
           binding.pry
+          beer_list = beer_list[1..20]
           beer_list.each do |beer_hash|
-          sub_style.style_beers << Beer.new(beer_hash) unless Beer.all.any? {|beer| beer.name == beer_hash[:name]}
+            sub_style.style_beers << Beer.new(beer_hash) unless Beer.all.any? {|beer| beer.name == beer_hash[:name]}
           end
           sub_style.style_beers.each do |beer|
             doc = Nokogiri::HTML(open("https://www.beeradvocate.com#{beer.url}"))

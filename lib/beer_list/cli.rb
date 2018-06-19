@@ -70,7 +70,7 @@ class BeerList::CLI
               end
             end
           elsif answer4 == "3"
-            puts "SORTING BY REVIEW TOTAL:"
+            puts "SORTING BY RATING TOTAL:"
             puts "PLEASE SELECT THE NUMBER THAT CORRESPONDS WITH THE SUB-STYLE OF CHOICE"
             puts "OTHERWISE ENTER 'EXIT' TO LEAVE OR 'MAIN' TO RETURN TO THE MAIN MENU"
             self.list_sub_styles
@@ -78,7 +78,7 @@ class BeerList::CLI
             while answer4_3 != "exit"
               answer4_3 = gets.strip
               if answer4_3 != "main"
-                self.list_sub_style_reviews(answer4_3)
+                self.list_sub_style_ratings(answer4_3)
               elsif answer4_3 == "main"
                 menu
               end
@@ -130,20 +130,15 @@ class BeerList::CLI
      puts "SORRY. LIMITED INFORMATION FOR YOUR SELECTED SUB-STYLE" if list.count < 10
    end
 
-   def list_sub_style_reviews(answer)
+   def list_sub_style_ratings(answer)
      choice = SubStyle.all[answer.to_i - 1]
-     list = choice.style_beers.sort_by! {|beer| beer.reviews}.reverse!
-     puts "SHOWING ALL #{choice.name.upcase}'S SORTED BY TOTAL REVIEWS"
+     list = choice.style_beers.sort_by! {|beer| beer.ratings}.reverse!
+     puts "SHOWING ALL #{choice.name.upcase}'S SORTED BY TOTAL ratings"
      list.each_with_index do |beer, index|
-       puts "#{index + 1}. #{beer.name} #{beer.reviews}"
+       puts "#{index + 1}. #{beer.name} #{beer.ratings}"
      end
      puts ""
      puts "SORRY. LIMITED INFORMATION FOR YOUR SELECTED SUB-STYLE" if list.count < 10
-   end
-
-   def list_beers
-    choice = SubStyle.all[answer - 1]
-    choice.style_beers.sort_by {|beer| beer.score}
    end
 
    def list_beers

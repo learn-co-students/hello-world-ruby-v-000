@@ -110,7 +110,7 @@ class BeerList::CLI
 
    def list_sub_style_score(answer)
     choice = SubStyle.all[answer.to_i - 1]
-    list = choice.style_beers.sort_by! {|beer| beer.score}
+    list = choice.style_beers.sort_by! {|beer| beer.score}.reverse!
     puts "SHOWING ALL #{choice.name.upcase}'S SORTED BY BA-SCORE"
     list.each_with_index do |beer, index|
       puts "#{index + 1}. #{beer.name} #{beer.score}"
@@ -121,7 +121,7 @@ class BeerList::CLI
 
    def list_sub_style_abv(answer)
      choice = SubStyle.all[answer.to_i - 1]
-     list = choice.style_beers.sort_by! {|beer| beer.abv}
+     list = choice.style_beers.sort_by! {|beer| beer.abv}.reverse!
      puts "SHOWING ALL #{choice.name.upcase}'S SORTED BY ABV"
      list.each_with_index do |beer, index|
        puts "#{index + 1}. #{beer.name} #{beer.abv}%"
@@ -132,7 +132,7 @@ class BeerList::CLI
 
    def list_sub_style_reviews(answer)
      choice = SubStyle.all[answer.to_i - 1]
-     list = choice.style_beers.sort_by! {|beer| beer.reviews}
+     list = choice.style_beers.sort_by! {|beer| beer.reviews}.reverse!
      puts "SHOWING ALL #{choice.name.upcase}'S SORTED BY TOTAL REVIEWS"
      list.each_with_index do |beer, index|
        puts "#{index + 1}. #{beer.name} #{beer.reviews}"

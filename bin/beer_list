@@ -10,4 +10,3 @@ Scraper.new.create_beers
 #beerlist.create_parent_styles
 #ParentStyle.all
 BeerList::CLI.new.call
-binding.pry

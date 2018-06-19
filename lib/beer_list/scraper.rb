@@ -56,7 +56,7 @@ class Scraper
     beer_list = []
     SubStyle.all.each do |sub_style|
         doc = Nokogiri::HTML(open("https://www.beeradvocate.com#{sub_style.url}?sort=avgD"))
-        doc.css("tr").drop(2).each do |info|
+        doc.css("tr").drop(3).each do |info|
           beer_list << {
             :name => info.css("td a b").text,
             :url => info.css("td a").attribute('href').value,
@@ -64,13 +64,13 @@ class Scraper
             :ratings => info.css("td b").collect {|child| child.text if child == info.css("td b")[1]}.reject! {|text| text == nil}.join.to_i,
             :score => info.css("td b").collect {|child| child.text if child == info.css("td b")[2]}.reject! {|text| text == nil}.join.to_f,
             :abv => info.css("td span").text.to_f
-            } unless info.css("td a b").text == "" && beer_list.count == 20
+            }
         end
         beer_list.reject! {|beer_hash| beer_hash[:ratings] < 100}
         counter = 50
         while beer_list.count < 19
           doc = Nokogiri::HTML(open("https://www.beeradvocate.com#{sub_style.url}?sort=avgD&start=#{counter}"))
-          doc.css("tr").drop(2).each do |info|
+          doc.css("tr").drop(3).each do |info|
             beer_list << {
               :name => info.css("td a b").text,
               :url => info.css("td a").attribute('href').value,
@@ -78,11 +78,12 @@ class Scraper
               :ratings => info.css("td b").collect {|child| child.text if child == info.css("td b")[1]}.reject! {|text| text == nil}.join.to_i,
               :score => info.css("td b").collect {|child| child.text if child == info.css("td b")[2]}.reject! {|text| text == nil}.join.to_f,
               :abv => info.css("td span").text.to_f
-              } unless info.css("td a b").text == ""
+              }
             end
             beer_list.reject! {|beer_hash| beer_hash[:ratings] < 100}
             counter += 50
           end
+          binding.pry
           beer_list.each do |beer_hash|
           sub_style.style_beers << Beer.new(beer_hash) unless Beer.all.any? {|beer| beer.name == beer_hash[:name]}
           end
@@ -101,7 +102,7 @@ class Scraper
     end
   end
 
-
+  #doc = Nokogiri::HTML(open("https://www.beeradvocate.com/beer/style/128/?sort=avgD&start=100"))
 
 
 end

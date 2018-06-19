@@ -43,7 +43,6 @@ class Scraper
             :parent_style => ParentStyle.all.find {|style| style.name == "Lager"},
             :url => beer_style.attribute('href').value
           }
-          binding.pry
         end
       end
     end

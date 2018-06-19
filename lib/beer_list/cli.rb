@@ -33,6 +33,7 @@ class BeerList::CLI
       elsif answer == "4"
         puts "PLEASE SELECT THE NUMBER THAT CORRESPONDS WITH THE SUB-STYLE OF CHOICE"
         puts "OTHERWISE ENTER 'EXIT' TO LEAVE OR 'MAIN' TO RETURN TO THE MAIN MENU"
+        answer4 = nil
         while answer4 != "exit"
           puts "PLEASE SELECT THE NUMBER THAT CORRESPONDS WITH THE SORTING METHOD OF CHOICE"
           puts "OTHERWISE ENTER 'EXIT' TO LEAVE OR 'MAIN' TO RETURN TO THE MAIN MENU"
@@ -45,10 +46,11 @@ class BeerList::CLI
               puts "PLEASE SELECT THE NUMBER THAT CORRESPONDS WITH THE SUB-STYLE OF CHOICE"
               puts "OTHERWISE ENTER 'EXIT' TO LEAVE OR 'MAIN' TO RETURN TO THE MAIN MENU"
               self.list_sub_styles
-              answer4_1 = gets.strip
+              answer4_1 = nil
               while answer4_1 != "exit"
+                answer4_1 = gets.strip
                 if answer4_1 != "main"
-                  self.list_sub_style_abv(answer4_2)
+                  self.list_sub_style_abv(answer4_1)
                 elsif answer_4_1 == "main"
                   menu
                 elsif answer4_1 == "exit"
@@ -60,8 +62,9 @@ class BeerList::CLI
             puts "PLEASE SELECT THE NUMBER THAT CORRESPONDS WITH THE SUB-STYLE OF CHOICE"
             puts "OTHERWISE ENTER 'EXIT' TO LEAVE OR 'MAIN' TO RETURN TO THE MAIN MENU"
             self.list_sub_styles
-            answer4_2 = gets.strip
+            answer4_2 = nil
             while answer4_2 != "exit"
+              answer4_2 = gets.strip
               if answer4_2 != "main"
                 self.list_sub_style_score(answer4_2)
               elsif answer_4_2 == "main"
@@ -71,20 +74,34 @@ class BeerList::CLI
               end
             end
           elsif answer4 == "3"
-            puts "SORTING BY TOTAL REVIEWS"
+            puts "SORTING BY REVIEW TOTAL:"
+            puts "PLEASE SELECT THE NUMBER THAT CORRESPONDS WITH THE SUB-STYLE OF CHOICE"
+            puts "OTHERWISE ENTER 'EXIT' TO LEAVE OR 'MAIN' TO RETURN TO THE MAIN MENU"
             self.list_sub_styles
+            answer4_3 = nil
+            while answer4_3 != "exit"
+              answer4_3 = gets.strip
+              if answer4_3 != "main"
+                self.list_sub_style_reviews(answer4_3)
+              elsif answer_4_3 == "main"
+                menu
+              elsif answer4_3 == "exit"
+                answer = answer4_3
+              end
+            end
           elsif answer4 == "main"
             menu
           elsif answer4 == "exit"
             answer = answer4
           end
+        end
       end
      end
    end
 
    def list_regions
      Region.all.each_with_index do |region, index|
-       puts "#{index += 1}. #{region.name}"
+       puts "#{index + 1}. #{region.name}"
      end
    end
 
@@ -95,28 +112,32 @@ class BeerList::CLI
 
    def list_sub_styles
      SubStyle.all.each_with_index do |sub_style, index|
-       puts "#{index += 1}. #{sub_style.name}"
+       puts "#{index + 1}. #{sub_style.name}"
      end
    end
 
-   def list_sub_style_score(answer)
+   def list_sub_style_score(answer.to_i)
     choice = SubStyle.all[answer - 1]
-    choice.style_beers.sort_by! {|beer| beer.score}
+    list = choice.style_beers.sort_by! {|beer| beer.score}
+    puts "SHOWING ALL #{choice.name}'S SORTED BY BA-SCORE"
+    list.each_with_index do |beer, index|
+      puts "#{index + 1}. #{beer.name} #{beer.score}"
+    end
    end
 
-   def list_sub_style_abv(answer)
+   def list_sub_style_abv(answer.to_i)
      choice = SubStyle.all[answer - 1]
      choice.style_beers.sort_by! {|beer| beer.abv}
    end
 
-   def list_sub_style_reviews(answer)
+   def list_sub_style_reviews(answer.to_i)
      choice = SubStyle.all[answer - 1]
      choice.style_beers.sort_by! {|beer| beer.reviews}
    end
 
    def list_beers
      Beer.all.each_with_index do |beer, index|
-       puts "#{index += 1}. #{beer.name}"
+       puts "#{index + 1}. #{beer.name}"
      end
    end
 

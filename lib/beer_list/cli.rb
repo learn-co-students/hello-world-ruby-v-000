@@ -87,9 +87,6 @@ class BeerList::CLI
             menu
           end
         end
-          puts "3. SORT BY REVIEW AMOUNT"
-          answer2 = gets.strip
-          if answer2 == "1"
       end
      end
    end

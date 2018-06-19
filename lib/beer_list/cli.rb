@@ -87,6 +87,9 @@ class BeerList::CLI
             menu
           end
         end
+          puts "3. SORT BY REVIEW AMOUNT"
+          answer2 = gets.strip
+          if answer2 == "1"
       end
      end
    end
@@ -139,6 +142,11 @@ class BeerList::CLI
      end
      puts ""
      puts "SORRY. LIMITED INFORMATION FOR YOUR SELECTED SUB-STYLE" if list.count < 10
+   end
+
+   def list_beers
+    choice = SubStyle.all[answer - 1]
+    choice.style_beers.sort_by {|beer| beer.score}
    end
 
    def list_beers

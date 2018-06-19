@@ -25,6 +25,7 @@ class Scraper
 
   def create_sub_styles
     self.create_parent_styles
+    self.create_regions
     sub_styles = []
     self.get_style_page.css("table table").each do |info|
       if info.css("span").text == "Ale Styles"
@@ -42,6 +43,7 @@ class Scraper
             :parent_style => ParentStyle.all.find {|style| style.name == "Lager"},
             :url => beer_style.attribute('href').value
           }
+          binding.pry
         end
       end
     end
@@ -49,7 +51,7 @@ class Scraper
       SubStyle.new(style_hash) unless SubStyle.all.any? {|sub_style| sub_style.name == style_hash[:name]}
     end
   end
-  
+
   def create_beers
     self.create_sub_styles
     beer_list = []
@@ -58,7 +60,7 @@ class Scraper
         doc.css("tr").drop(2).each do |info|
           beer_list << {
             :name => info.css("td a b").text,
-            :url => info.css("td a").attribute('href').value, 
+            :url => info.css("td a").attribute('href').value,
             :parent_style => sub_style.parent_style,
             :ratings => info.css("td b").collect {|child| child.text if child == info.css("td b")[1]}.reject! {|text| text == nil}.join.to_i,
             :score => info.css("td b").collect {|child| child.text if child == info.css("td b")[2]}.reject! {|text| text == nil}.join.to_f,
@@ -72,7 +74,7 @@ class Scraper
           doc.css("tr").drop(2).each do |info|
             beer_list << {
               :name => info.css("td a b").text,
-              :url => info.css("td a").attribute('href').value, 
+              :url => info.css("td a").attribute('href').value,
               :parent_style => sub_style.parent_style,
               :ratings => info.css("td b").collect {|child| child.text if child == info.css("td b")[1]}.reject! {|text| text == nil}.join.to_i,
               :score => info.css("td b").collect {|child| child.text if child == info.css("td b")[2]}.reject! {|text| text == nil}.join.to_f,
@@ -87,37 +89,24 @@ class Scraper
           end
           sub_style.style_beers.each do |beer|
             doc = Nokogiri::HTML(open("https://www.beeradvocate.com#{beer.url}"))
-            binding.pry
+            new_doc = doc.css("div#info_box").text.split("\n").each {|text| text.delete!("\t")}.reject {|text| text == ""}
+            new_doc[-1] = new_doc[-1].split("Added by")[0]
+            new_doc[6] = new_doc[6].split("Availability: ")[1]
+            attr_hash = {
+              :availability => new_doc[6],
+              :brewery => new_doc[2],
+              :description => new_doc[-1]
+            }
+            beer.add_attrs(attr_hash)
           end
-          binding.pry
     end
   end
 
-    
-    
+
+
 
 end
 
 =begin
-binding.pry
- doc.css("tr td a").each do |info|
-   beer_list << { 
-     :name => info.css("b").text,
-     :url => info.attribute('href').value, 
-     :parent_style => sub_style.parent_style  
-   }
-end
-beer_list.reject! do |hash|
-hash[:name] == ""
-end
-beer_list.each do|beer_hash|
-beer_doc = Nokogiri::HTML(open("https://www.beeradvocate.com#{beer_hash[:url]}"))
-beer_hash[:ratings] = beer_doc.css("dd span.ba-ratings").text.to_i
-beer_hash[:score] = beer_doc.css("div#score_box span.BAscore_big span.ba-ravg")
-binding.pry
-end
-binding.pry
-beer_list.each do |beer_hash|
-sub_style.style_beers << Beer.new(beer_hash) unless Beer.all.any? {|beer| beer.name == beer_hash[:name]}
-end
+
 =end

@@ -51,10 +51,8 @@ class BeerList::CLI
                 answer4_1 = gets.strip
                 if answer4_1 != "main"
                   self.list_sub_style_abv(answer4_1)
-                elsif answer_4_1 == "main"
+                elsif answer4_1 == "main"
                   menu
-                elsif answer4_1 == "exit"
-                  answer = answer4_1
                 end
               end
           elsif answer4 == "2"
@@ -67,10 +65,8 @@ class BeerList::CLI
               answer4_2 = gets.strip
               if answer4_2 != "main"
                 self.list_sub_style_score(answer4_2)
-              elsif answer_4_2 == "main"
+              elsif answer4_2 == "main"
                 menu
-              elsif answer4_2 == "exit"
-                answer = answer4_2
               end
             end
           elsif answer4 == "3"
@@ -83,16 +79,12 @@ class BeerList::CLI
               answer4_3 = gets.strip
               if answer4_3 != "main"
                 self.list_sub_style_reviews(answer4_3)
-              elsif answer_4_3 == "main"
+              elsif answer4_3 == "main"
                 menu
-              elsif answer4_3 == "exit"
-                answer = answer4_3
               end
             end
           elsif answer4 == "main"
             menu
-          elsif answer4 == "exit"
-            answer = answer4
           end
         end
       end
@@ -116,23 +108,37 @@ class BeerList::CLI
      end
    end
 
-   def list_sub_style_score(answer.to_i)
-    choice = SubStyle.all[answer - 1]
+   def list_sub_style_score(answer)
+    choice = SubStyle.all[answer.to_i - 1]
     list = choice.style_beers.sort_by! {|beer| beer.score}
-    puts "SHOWING ALL #{choice.name}'S SORTED BY BA-SCORE"
+    puts "SHOWING ALL #{choice.name.upcase}'S SORTED BY BA-SCORE"
     list.each_with_index do |beer, index|
       puts "#{index + 1}. #{beer.name} #{beer.score}"
     end
+    puts ""
+    puts "SORRY. LIMITED INFORMATION FOR YOUR SELECTED SUB-STYLE" if list.count < 10
    end
 
-   def list_sub_style_abv(answer.to_i)
-     choice = SubStyle.all[answer - 1]
-     choice.style_beers.sort_by! {|beer| beer.abv}
+   def list_sub_style_abv(answer)
+     choice = SubStyle.all[answer.to_i - 1]
+     list = choice.style_beers.sort_by! {|beer| beer.abv}
+     puts "SHOWING ALL #{choice.name.upcase}'S SORTED BY ABV"
+     list.each_with_index do |beer, index|
+       puts "#{index + 1}. #{beer.name} #{beer.abv}%"
+     end
+     puts ""
+     puts "SORRY. LIMITED INFORMATION FOR YOUR SELECTED SUB-STYLE" if list.count < 10
    end
 
-   def list_sub_style_reviews(answer.to_i)
-     choice = SubStyle.all[answer - 1]
-     choice.style_beers.sort_by! {|beer| beer.reviews}
+   def list_sub_style_reviews(answer)
+     choice = SubStyle.all[answer.to_i - 1]
+     list = choice.style_beers.sort_by! {|beer| beer.reviews}
+     puts "SHOWING ALL #{choice.name.upcase}'S SORTED BY TOTAL REVIEWS"
+     list.each_with_index do |beer, index|
+       puts "#{index + 1}. #{beer.name} #{beer.reviews}"
+     end
+     puts ""
+     puts "SORRY. LIMITED INFORMATION FOR YOUR SELECTED SUB-STYLE" if list.count < 10
    end
 
    def list_beers

@@ -64,11 +64,11 @@ class Scraper
             :ratings => info.css("td b").collect {|child| child.text if child == info.css("td b")[1]}.reject! {|text| text == nil}.join.to_i,
             :score => info.css("td b").collect {|child| child.text if child == info.css("td b")[2]}.reject! {|text| text == nil}.join.to_f,
             :abv => info.css("td span").text.to_f
-            } unless info.css("td a b").text == ""
+            } unless info.css("td a b").text == "" && beer_list.count == 20
         end
         beer_list.reject! {|beer_hash| beer_hash[:ratings] < 100}
         counter = 50
-        while beer_list.count < 20
+        while beer_list.count < 19
           doc = Nokogiri::HTML(open("https://www.beeradvocate.com#{sub_style.url}?sort=avgD&start=#{counter}"))
           doc.css("tr").drop(2).each do |info|
             beer_list << {

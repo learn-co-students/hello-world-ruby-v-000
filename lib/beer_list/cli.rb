@@ -14,31 +14,62 @@ class BeerList::CLI
     puts "2. SEPERATE BETWEEN ALES AND LAGERS"
     puts "3. CHOOSE BY SUBSTYLE"
     puts "OTHERWISE, ENTER 'EXIT'"
-    answer = gets.strip
-    def exit?
-      false
-    end
-    while exit? != true
+    answer = self.input
       case answer
       when "1"
+        self.list_beer_score
+        puts ""
         self.sorting_method
-        answer_1 = gets.strip
+        answer_1 = self.input
         case answer_1
         when "1"
           self.list_beer_abv
+          puts ""
+          self.more_options
+          answer_1 = self.input
+          case answer_1
+          when "main"
+            menu
+          else
+            puts "GOODBYE"
+            exit
+          end
         when "2"
-          self.list_beer_score
-        when "3"
           self.list_beer_ratings
+          puts ""
+          self.more_options
+          answer_1 = self.input
+          case answer_1
+          when "main"
+            menu
+          else
+            puts "GOODBYE"
+            exit
+          end
         when "main"
           menu
-        when "exit"
-          exit? == true
-        when "back"
-          answer
-        end
+        else
+          puts "GOODBYE"
+          exit
       end
     end
+  end
+
+  def sorting_method
+    puts "WOULD YOU LIKE TO FURTHER SORT?"
+    puts "IF SO SELECT THE NUMBER THAT CORRESPONDS WITH YOUR SORTING METHOD OF CHOICE"
+    puts "OTHERWISE TYPE 'MAIN' TO RETURN TO THE MAIN MENU OR 'EXIT' TO LEAVE"
+    puts "1. SORT BY ABV"
+    puts "2. SORT BY TOTAL REVIEWS"
+  end
+
+  def more_options
+    puts "WOULD YOU LIKE TO SEE MORE LISTS?"
+    puts "ENTER 'MAIN' TO DO SO, OTHERWISE TYPE 'EXIT'"
+  end
+
+  def input
+    gets.strip.downcase
   end
 
 
@@ -117,14 +148,6 @@ class BeerList::CLI
     beer_list.each_with_index do |beer, index|
       puts "#{index + 1}. #{beer.name} #{beer.ratings}"
      end
-   end
-
-   def sorting_method
-     puts "PLEASE SELECT THE NUMBER THAT CORRESPONDS WITH THE SORTING METHOD OF CHOICE"
-     puts "OTHERWISE ENTER 'EXIT' TO LEAVE OR 'MAIN' TO RETURN TO THE MAIN MENU"
-     puts "1. SORT BY ABV"
-     puts "2. SORT BY BA-SCORE"
-     puts "3. SORT BY TOTAL REVIEWS"
    end
 
 end

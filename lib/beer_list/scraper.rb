@@ -55,7 +55,7 @@ class Scraper
     self.create_sub_styles
     beer_list = []
     # DONT FORGET TO TAKE THE DROP OUT BELOW
-    SubStyle.all[25..50].each do |sub_style|
+    SubStyle.all.each do |sub_style|
       beer_list.clear
         doc = Nokogiri::HTML(open("https://www.beeradvocate.com#{sub_style.url}?sort=avgD"))
         doc.css("tr").drop(3).each do |info|
@@ -99,7 +99,6 @@ class Scraper
           end
             #REMOVED ADD ATTRS FOR NEW Beers
     end
-    binding.pry
   end
 
   #doc = Nokogiri::HTML(open("https://www.beeradvocate.com/beer/style/128/?sort=avgD&start=1000"))

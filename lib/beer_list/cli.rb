@@ -15,17 +15,28 @@ class BeerList::CLI
     puts "3. CHOOSE BY SUBSTYLE"
     puts "OTHERWISE, ENTER 'EXIT'"
     answer = gets.strip
-    case answer
-    when "1"
-      self.sorting_method
-      answer_1 = gets.strip
-      case answer_1
+    def exit?
+      false
+    end
+    while exit? != true
+      case answer
       when "1"
-        self.list_beer_abv
-      when "2"
-        self.list_beer_score
-      when "3"
-        self.list_beer_ratings
+        self.sorting_method
+        answer_1 = gets.strip
+        case answer_1
+        when "1"
+          self.list_beer_abv
+        when "2"
+          self.list_beer_score
+        when "3"
+          self.list_beer_ratings
+        when "main"
+          menu
+        when "exit"
+          exit? == true
+        when "back"
+          answer
+        end
       end
     end
   end

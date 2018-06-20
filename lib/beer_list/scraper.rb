@@ -54,7 +54,8 @@ class Scraper
   def create_beers
     self.create_sub_styles
     beer_list = []
-    SubStyle.all.drop(20).each do |sub_style|
+    # DONT FORGET TO TAKE THE DROP OUT BELOW
+    SubStyle.all.each do |sub_style|
       beer_list.clear
         doc = Nokogiri::HTML(open("https://www.beeradvocate.com#{sub_style.url}?sort=avgD"))
         doc.css("tr").drop(3).each do |info|
@@ -73,7 +74,7 @@ class Scraper
         doc = Nokogiri::HTML(open("https://www.beeradvocate.com#{sub_style.url}?sort=revsD"))
           ratings_array = []
           doc.css("tr td b").drop(3).each do |ratings|
-            ratings_array << ratings if ratings.text.gsub(",","").to_i > 99
+            ratings_array << ratings.text.gsub(",","").to_i if ratings.text.gsub(",","").to_i > 99 && ratings.text.split("").count < 7
           end
           counter = ratings_array.count if ratings_array.count < counter
         while beer_list.count < counter
@@ -90,7 +91,6 @@ class Scraper
             end
             beer_list.reject! {|beer_hash| beer_hash[:ratings] < 100}
             page_counter += 50
-            binding.pry
           end
           beer_list = beer_list[0..19]
           beer_list.each do |beer_hash|
@@ -109,6 +109,7 @@ class Scraper
             beer.add_attrs(attr_hash)
           end
     end
+    binding.pry
   end
 
   #doc = Nokogiri::HTML(open("https://www.beeradvocate.com/beer/style/128/?sort=avgD&start=1000"))

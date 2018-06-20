@@ -1,5 +1,4 @@
-PATH
-PATH
+PPATH
   remote: .
   specs:
     beer_list (0.1.0)

@@ -11,4 +11,10 @@ class SubStyle
       @@all << self
       @style_beers = []
     end
+
+    def self.prints_all
+      self.all.each_with_index do |sub_style, index|
+        puts "#{index + 1}. #{sub_style.name}"
+      end
+    end
 end

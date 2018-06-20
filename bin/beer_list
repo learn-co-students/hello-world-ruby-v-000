@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require './lib/beer_list'
+
+
+Scraper.new.create_beers
+BeerList::CLI.new.call
+binding.pry

@@ -55,7 +55,7 @@ class Scraper
     self.create_sub_styles
     beer_list = []
     # DONT FORGET TO TAKE THE DROP OUT BELOW
-    SubStyle.all.each do |sub_style|
+    SubStyle.all[25..50].each do |sub_style|
       beer_list.clear
         doc = Nokogiri::HTML(open("https://www.beeradvocate.com#{sub_style.url}?sort=avgD"))
         doc.css("tr").drop(3).each do |info|
@@ -76,8 +76,8 @@ class Scraper
           doc.css("tr td b").drop(3).each do |ratings|
             ratings_array << ratings.text.gsub(",","").to_i if ratings.text.gsub(",","").to_i > 99 && ratings.text.split("").count < 7
           end
+          ratings_array.pop if ratings_array.count > 1 && ratings_array[-1] > ratings_array[-2]
           counter = ratings_array.count if ratings_array.count < counter
-          binding.pry
         while beer_list.count < counter
           doc = Nokogiri::HTML(open("https://www.beeradvocate.com#{sub_style.url}?sort=avgD&start=#{page_counter}"))
           doc.css("tr").drop(3).each do |info|
@@ -97,18 +97,7 @@ class Scraper
           beer_list.each do |beer_hash|
             sub_style.style_beers << Beer.new(beer_hash) unless Beer.all.any? {|beer| beer.name == beer_hash[:name]}
           end
-          sub_style.style_beers.each do |beer|
-            doc = Nokogiri::HTML(open("https://www.beeradvocate.com#{beer.url}"))
-            new_doc = doc.css("div#info_box").text.split("\n").each {|text| text.delete!("\t")}.reject {|text| text == ""}
-            new_doc[-1] = new_doc[-1].split("Added by")[0]
-            new_doc[6] = new_doc[6].split("Availability: ")[1]
-            attr_hash = {
-              :availability => new_doc[6],
-              :brewery => new_doc[2],
-              :description => new_doc[-1]
-            }
-            beer.add_attrs(attr_hash)
-          end
+            #REMOVED ADD ATTRS FOR NEW Beers
     end
     binding.pry
   end
@@ -119,5 +108,18 @@ class Scraper
 end
 
 =begin
-if main reviews page at least 100 reviews less than 20 than counter is = that number
+  --- ADD ATTR SECTION FOR CREATE_BEERS -----
+sub_style.style_beers.each do |beer|
+  doc = Nokogiri::HTML(open("https://www.beeradvocate.com#{beer.url}"))
+  new_doc = doc.css("div#info_box").text.split("\n").each {|text| text.delete!("\t")}.reject {|text| text == ""}
+  new_doc[-1] = new_doc[-1].split("Added by")[0]
+  new_doc[6] = new_doc[6].split("Availability: ")[1]
+  attr_hash = {
+    :availability => new_doc[6],
+    :brewery => new_doc[2],
+    :description => new_doc[-1]
+  }
+  beer.add_attrs(attr_hash)
+end
+----------------------------------------------
 =end

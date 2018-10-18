@@ -10,3 +10,4 @@ describe "Hello World" do
     load './hello_world.rb'
   end
 end
+Create authenticate_or_request_with_http_digest

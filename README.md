@@ -14,6 +14,12 @@ We're going to make a file that will print ["Hello World!"](http://en.wikipedia.
 
 ## Instructions
 
+touch hello_world.rb
+
+
+
+
+
 Get started by clicking the Open button in Learn. 
 
 ### Creating a File

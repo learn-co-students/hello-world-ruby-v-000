@@ -14,11 +14,11 @@ We're going to make a file that will print ["Hello World!"](http://en.wikipedia.
 
 ## Instructions
 
-Get started by clicking the Open button in Learn. 
+Get started by clicking the Open button in Learn.
 
 ### Creating a File
 
-You will need to create a text file called `hello_world.rb` within the lab's directory. The `.rb` file extension is a common convention for specifying the language of the file - in this case, Ruby. To create this, in the Learn IDE's terminal type `touch hello_world.rb` or use the "Create New" or "New File" option in the Editor. If that worked as expected, you should now see the file appear in the file browser. You can open this file by double clicking on it in the file browser. You should now see an empty file open in your text editor, ready to be edited. 
+You will need to create a text file called `hello_world.rb` within the lab's directory. The `.rb` file extension is a common convention for specifying the language of the file - in this case, Ruby. To create this, in the Learn IDE's terminal type `touch hello_world.rb` or use the "Create New" or "New File" option in the Editor. If that worked as expected, you should now see the file appear in the file browser. You can open this file by double clicking on it in the file browser. You should now see an empty file open in your text editor, ready to be edited.
 
 ### Writing Code
 
@@ -35,6 +35,7 @@ Anytime you make changes to a file (like the one you've just made) you need to s
 
 Execute this file by typing `ruby hello_world.rb` into your terminal and pressing `enter`. The `ruby` part of that command tells your computer to use the Ruby interpreter when reading and executing the code in your file. The second part of the command, `hello_world.rb` is the path to the file you want to run.
 
+
 Note: be sure to save your file before trying to print, otherwise it will not work.
 
 You should see:
@@ -46,9 +47,9 @@ Hello World!
 
 ### Running Learn
 
-Confirm everything is working by running the `learn` command. You should see that all tests are passing (e.g. no red error text). 
+Confirm everything is working by running the `learn` command. You should see that all tests are passing (e.g. no red error text).
 
-Note: When you write code, the case (uppercase/lowercase) of characters matters, and so your test will not pass unless you print "Hello World!" exactly. 
+Note: When you write code, the case (uppercase/lowercase) of characters matters, and so your test will not pass unless you print "Hello World!" exactly.
 
 ### Submitting Your Lab
 
@@ -58,7 +59,7 @@ Your adventure in Ruby has only just begun!
 
 ### Hello World History
 
-A small piece of coding history—a handwritten version of Hello World in C (an early programming language). 
+A small piece of coding history—a handwritten version of Hello World in C (an early programming language).
 
 ![Hello World! Art](https://d32dm0rphc51dk.cloudfront.net/b6JQ66-0nHij79irJT-Pdg/large.jpg)
 

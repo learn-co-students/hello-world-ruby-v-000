@@ -9,7 +9,7 @@ We're going to make a file that will print ["Hello World!"](http://en.wikipedia.
 1. Create a new Ruby file.
 2. Write syntactically valid code to produce "Hello World!"
 3. Run a Ruby file.
-4. Run the Learn gem.
+4. Run the Learn gem.l
 5. Submit a Learn lab.
 
 ## Instructions
